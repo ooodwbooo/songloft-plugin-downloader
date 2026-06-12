@@ -1,9 +1,11 @@
 {
+  "$schema": "https://raw.githubusercontent.com/songloft-org/plugin-toolchain/main/schemas/plugin.schema.json",
   "name": "歌曲下载",
-  "version": "0.1.0",
+  "version": "2026.6.12",
   "description": "将 WebDAV/Subsonic 等自有网络存储中的歌曲下载到服务端本地，支持自定义目录结构和元数据嵌入",
   "author": "Songloft Team",
   "homepage": "https://github.com/songloft-org/songloft-plugin-downloader",
+  "license": "Apache-2.0",
   "entryPath": "song-downloader",
   "main": "main.js",
   "minHostVersion": "2.6.0",
@@ -12,6 +14,7 @@
     "songs.read",
     "songs.write"
   ],
+  "updateUrl": "https://raw.githubusercontent.com/songloft-org/songloft-plugin-downloader/main/plugin.json",
   "entryHash": "",
   "zipHash": ""
 }

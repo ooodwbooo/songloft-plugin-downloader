@@ -1,0 +1,380 @@
+/* 歌曲下载插件样式 — CSS 变量、reset、body 和字体由主程序 common.css 提供 */
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Card */
+.card {
+    background: var(--md-surface);
+    border-radius: var(--md-radius-md);
+    box-shadow: var(--md-shadow-1);
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.card-header .material-symbols-outlined {
+    color: var(--md-primary);
+    font-size: 22px;
+}
+
+.card-body { padding: 16px 20px; }
+
+/* Form */
+.form-group { margin-bottom: 16px; }
+.form-group:last-child { margin-bottom: 0; }
+
+.form-label {
+    font-size: 13px;
+    color: var(--md-on-surface-variant);
+    margin-bottom: 6px;
+    display: block;
+}
+
+.text-field {
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--md-on-surface);
+    background: var(--md-surface-1);
+    border: 1.5px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-sm);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color .2s;
+    width: 100%;
+}
+
+.text-field:focus {
+    border-color: var(--md-primary);
+    background: var(--md-surface);
+}
+
+.text-field::placeholder { color: var(--md-outline); }
+
+.form-hint {
+    font-size: 12px;
+    color: var(--md-on-surface-variant);
+    margin-top: 6px;
+}
+
+/* Switch Row — 参考 miot 设置页开关布局 */
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.switch-row-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.switch-row-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.switch-row-subtitle {
+    font-size: 12px;
+    color: var(--md-on-surface-variant);
+}
+
+/* Material Design Switch — 参考 miot switch-slider 实现 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--md-surface-variant);
+    border: 2px solid var(--md-outline);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.switch-slider::before {
+    content: '';
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 6px;
+    bottom: 6px;
+    background: var(--md-outline);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.switch input:checked + .switch-slider {
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(20px);
+    background: var(--md-on-primary);
+    width: 24px;
+    height: 24px;
+    bottom: 2px;
+    left: 2px;
+}
+
+/* Buttons */
+.btn-filled, .btn-outlined {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: box-shadow .2s, background .2s, opacity .2s;
+    letter-spacing: .25px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-filled {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+    padding: 10px 24px;
+    border-radius: var(--md-radius-xl);
+}
+
+.btn-filled:hover { box-shadow: var(--md-shadow-2); filter: brightness(1.08); }
+.btn-filled:active { filter: brightness(.92); }
+.btn-filled:disabled { opacity: .38; cursor: not-allowed; box-shadow: none; filter: none; }
+
+.btn-outlined {
+    background: transparent;
+    color: var(--md-primary);
+    border: 1.5px solid var(--md-primary);
+    padding: 9px 24px;
+    border-radius: var(--md-radius-xl);
+}
+
+.btn-outlined:hover { background: rgba(89, 91, 148, .08); }
+html[data-theme="dark"] .btn-outlined:hover { background: rgba(199, 191, 255, .12); }
+
+.btn-sm {
+    padding: 6px 14px !important;
+    font-size: 13px !important;
+    min-height: 32px;
+}
+
+.btn-sm .material-symbols-outlined { font-size: 16px !important; }
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--md-surface-1);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+.toolbar-info {
+    font-size: 13px;
+    color: var(--md-on-surface-variant);
+}
+
+/* Progress Card */
+.dl-progress { display: none; }
+.dl-progress.active { display: block; }
+
+.prog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.prog-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.prog-num {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--md-primary);
+}
+
+.progress-linear {
+    height: 4px;
+    background: var(--md-primary-container);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-linear-fill {
+    height: 100%;
+    background: var(--md-primary);
+    border-radius: 2px;
+    width: 0%;
+    transition: width .3s;
+}
+
+.prog-stats {
+    font-size: 12px;
+    color: var(--md-on-surface-variant);
+    display: flex;
+    gap: 16px;
+}
+
+/* Table */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    position: sticky;
+    top: 0;
+    background: var(--md-surface);
+}
+
+td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+    font-size: 13px;
+    color: var(--md-on-surface);
+}
+
+tr:hover td { background: var(--md-surface-1); }
+
+.cb {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--md-primary);
+    cursor: pointer;
+}
+
+.song-title {
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.song-artist { color: var(--md-on-surface-variant); }
+
+.song-album {
+    color: var(--md-on-surface-variant);
+    font-size: 12px;
+}
+
+.song-source {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-radius: var(--md-radius-full);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    color: var(--md-on-surface-variant);
+    gap: 8px;
+    text-align: center;
+}
+
+.empty-state .material-symbols-outlined { font-size: 48px; opacity: .5; }
+.empty-state p { font-size: 14px; }
+
+/* Status */
+.status-ok { color: var(--md-success); font-weight: 500; }
+.status-fail { color: var(--md-error); font-weight: 500; }
+
+/* Snackbar */
+.snackbar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    padding: 12px 24px;
+    background: var(--md-surface-2);
+    color: var(--md-on-surface);
+    border-radius: var(--md-radius-sm);
+    font-size: 14px;
+    z-index: 300;
+    opacity: 0;
+    transition: transform .3s ease, opacity .3s ease;
+    max-width: 400px;
+    text-align: center;
+    pointer-events: none;
+    box-shadow: var(--md-shadow-2);
+}
+
+.snackbar.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.snackbar.success { background: var(--md-success); color: #fff; }
+.snackbar.error { background: var(--md-error); color: #fff; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: var(--md-outline-variant); border-radius: 2px; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container { padding: 12px; }
+    .card-header, .card-body, .toolbar { padding-left: 16px; padding-right: 16px; }
+    .toolbar { flex-wrap: nowrap; }
+    .toolbar .btn-outlined,
+    .toolbar .btn-filled { padding: 6px 10px !important; font-size: 12px !important; }
+}
