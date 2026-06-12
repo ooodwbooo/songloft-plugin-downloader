@@ -36,31 +36,31 @@ Songloft 服务端 music_path 本地目录（type=local）
 
 | 字段 | 值 |
 |------|-----|
-| title | 夜曲 |
-| artist | 周杰伦 |
-| album | 十一月的萧邦 |
+| title |Erta Strada |
+| artist | My Band |
+| album | Demo Album |
 | type | remote |
 | plugin_entry_path | dav |
-| source_data | `{"configName":"家庭NAS","path":"/music/周杰伦/夜曲.flac"}` |
+| source_data | `{"configName":"家庭NAS","path":"/music/My Band/Terra Strada.flac"}` |
 
 使用本插件下载后（路径模板 `{artist}-{album}/{title}`）：
 
 | 字段 | 值 |
 |------|-----|
 | type | **local** |
-| file_path | `/data/music/周杰伦-十一月的萧邦/夜曲.flac` |
+| file_path | `/data/music/My Band-Demo Album/Terra Strada.flac` |
 | plugin_entry_path | *(已清空)* |
 | source_data | *(已清空)* |
 
 歌曲文件已存储在服务端本地，不再依赖 NAS 在线。
 
-又如通过 Subsonic 插件接入了另一台 Songloft/Navidrome 服务器（`http://192.168.1.200:4533`），想把歌曲迁移到本机：
+又如通过 Subsonic 插件接入了另一台 Navidrome 服务器（`http://192.168.1.200:4533`），想把歌曲迁移到本机：
 
 | 字段 | 下载前 | 下载后 |
 |------|--------|--------|
 | type | remote | **local** |
 | plugin_entry_path | subsonic | *(清空)* |
-| file_path | *(空)* | `/data/music/Adele-25/Hello.mp3` |
+| file_path | *(空)* | `/data/music/Artist-Album/Song.mp3` |
 
 ## 安装
 
@@ -81,7 +81,7 @@ pnpm run build
 2. **设置**（页面顶部）：
    - **路径模板**：控制下载后的目录结构，默认 `{artist}-{album}/{title}`
      - 支持占位符：`{title}`（必填）、`{artist}`、`{album}`、`{year}`、`{genre}`
-     - 示例：`{artist}/{album}/{title}` → `周杰伦/十一月的萧邦/夜曲.flac`
+     - 示例：`{artist}/{album}/{title}` → `My Band/Demo Album/Terra Strada.flac`
    - **嵌入元数据**：是否将标题、艺术家、专辑、封面等写入音频文件标签（MP3/FLAC）
 3. 勾选要下载的歌曲，点击「下载选中」
 4. 批量下载时页面显示进度条和成功/失败计数
