@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>歌曲下载</title>
     <link rel="stylesheet" href="static/css/style.css">
 </head>
@@ -17,7 +17,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label class="form-label">路径模板</label>
-                    <input type="text" class="text-field" id="tpl" placeholder="{artist}-{album}/{title}">
+                    <input type="text" class="text-field" id="tpl" placeholder="{artist}-{album}/{title}" aria-label="路径模板">
                     <div class="form-hint">支持: {title} {artist} {album} {year} {genre}</div>
                 </div>
                 <div class="switch-row">
@@ -26,7 +26,7 @@
                         <span class="switch-row-subtitle">写入标题/艺术家/封面等到音频文件标签</span>
                     </div>
                     <label class="switch">
-                        <input type="checkbox" id="embed" checked>
+                        <input type="checkbox" id="embed" checked aria-label="嵌入元数据">
                         <span class="switch-slider"></span>
                     </label>
                 </div>
@@ -66,10 +66,10 @@
                 </button>
             </div>
             <div class="table-wrap" style="max-height:calc(100vh - 380px);overflow-y:auto">
-                <table>
+                <table aria-label="下载列表">
                     <thead>
                         <tr>
-                            <th style="width:36px"><input type="checkbox" class="cb" id="cb-all"></th>
+                            <th style="width:36px"><input type="checkbox" class="cb" id="cb-all" aria-label="全选"></th>
                             <th>标题</th>
                             <th>艺术家</th>
                             <th>专辑</th>
