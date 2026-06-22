@@ -23,6 +23,7 @@ async function loadSettings() {
     if (r) {
         $('#tpl').value = r.path_template || '';
         $('#embed').checked = r.embed_metadata !== false;
+        $('#interval').value = r.download_interval ?? 0;
     }
 }
 
@@ -30,6 +31,7 @@ async function saveSettings() {
     await P.apiPost('/api/settings', {
         path_template: $('#tpl').value,
         embed_metadata: $('#embed').checked,
+        download_interval: parseInt($('#interval').value) || 0,
     });
 }
 
@@ -105,16 +107,10 @@ $('#btn-refresh').addEventListener('click', () => {
 // Settings auto-save
 $('#tpl').addEventListener('change', saveSettings);
 $('#embed').addEventListener('change', saveSettings);
+$('#interval').addEventListener('change', saveSettings);
 
-// Download
-$('#btn-dl').addEventListener('click', async () => {
-    if (selected.size === 0) return;
-    const ids = [...selected];
-    await saveSettings();
-
-    await P.apiPost('/api/download-batch/clear');
-    await P.apiPost('/api/download-batch', { song_ids: ids });
-
+// 开始下载轮询
+function startPolling(autoClose = true) {
     const prog = $('#progress');
     prog.classList.add('active');
 
@@ -135,12 +131,34 @@ $('#btn-dl').addEventListener('click', async () => {
             showSnackbar(`下载完成：${r.success} 成功，${r.failed} 失败`, r.failed > 0 ? 'error' : 'success');
             setTimeout(() => {
                 prog.classList.remove('active');
-                selected.clear();
+                if (autoClose) selected.clear();
                 loadSongs();
             }, 2000);
         }
     }, 800);
+}
+
+// Download
+$('#btn-dl').addEventListener('click', async () => {
+    if (selected.size === 0) return;
+    const ids = [...selected];
+    await saveSettings();
+
+    await P.apiPost('/api/download-batch/clear');
+    await P.apiPost('/api/download-batch', { song_ids: ids });
+
+    startPolling(true);
 });
 
 loadSettings();
 loadSongs();
+
+// 页面加载时检查是否有正在进行的下载
+checkActiveDownload();
+
+async function checkActiveDownload() {
+    const r = await P.apiGet('/api/download-batch/progress');
+    if (r && r.active && !r.done) {
+        startPolling(false);
+    }
+}
